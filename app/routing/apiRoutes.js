@@ -21,16 +21,14 @@ module.exports = function (app) {
     for (let i = 0; i < friends.length; i++) {
       diffArr.push(compareScores(scoresArr, friends[i].scores));
     };
+    friends.push(newFriend);
     console.log(diffArr);
     let matchValue = diffArr.indexOf(Math.min.apply(null, diffArr));
     console.log(matchValue);
     let matchFriend = friends[matchValue];
     const matchTag = matchFriend.tagline;
     const matchName = matchFriend.name;
-    const matchPhoto = matchFriend.photo;
-
-    friends.push(newFriend);
-    
+    const matchPhoto = matchFriend.photo;    
     res.json({matchTag: matchTag, matchName: matchName, matchPhoto: matchPhoto});
   });
 
