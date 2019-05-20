@@ -9,8 +9,8 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
     integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-  <link rel="stylesheet" href="../../assets/chosen/chosen.css">
-  <link rel="icon" type="favicon/png" href="../../assets/images/favicon.png">
+  <link rel="stylesheet" href="/chosen/chosen.css">
+  <link rel="icon" type="favicon/png" href="/images/favicon.png">
   <title>Come Here Often - Survey</title>
 </head>
 
@@ -18,15 +18,16 @@
 
   <div class="container-fluid">
 
-    <h2 class="mt-3">Survey Questions <a class="btn btn-primary btn-lg ml-5" href="./home.html" role="button"><i class="fas fa-home fa-1x"></i> Return Home</a> </h2>
+    <h2 class="mt-3">Survey Questions <a class="btn btn-primary btn-lg ml-5" href="/" role="button"><i
+          class="fas fa-home fa-1x"></i> Return Home</a> </h2>
     <hr>
     <h3 class="mb-3">About You</h3>
-    <form class="border border-color-blue">
+    <form class="border" id="inputForm">
       <div class="ml-2">
-        <h4>Name (required)</h4>
-        <input type="text" name="name" class="mb-2" size="50">
-        <h4>Link to Photo Image (required)</h4>
-        <input type="url" name="photo" class="mb-3" size="50">
+        <h4 class="mt-2">Name <span class="h6"> (required)</span></h4>
+        <input id="name" type="text" name="name" class="mb-2" size="50">
+        <h4>Link to Photo Image <span class="h6"> (required)</span></h4>
+        <input id="photo" type="url" name="photo" class="mb-3" size="50">
       </div>
     </form>
 
@@ -36,10 +37,38 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-md-12">
+        <a class="btn btn-primary btn-lg mt-5 mb-2 w-100" href="#" role="button" id="submitButton" data-toggle="modal"
+          data-target="matchModalCenter"><i class="fas fa-clipboard-check fa-1x"></i> Submit</a>
+      </div>
+    </div>
+    <hr>
+
+    <footer>
+      <p><a href="/api/friends">API Friends List</a> | <a href="#">Github Repo</a></p>
+    </footer>
+
+    <div class="modal fade" id="matchModal" tabindex="-1" role="dialog" aria-labelledby="matchModalTitle"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalCardTitle">Meet Your Letterkenny Match!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h3 id="matchName"></h3>
+            <img id="matchPhoto" class="text-center" src="#" alt="Image Not Found">
+            <h4 id="matchTag"></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-
-
-
 
 
   <script src="https://code.jquery.com/jquery.js"></script>
@@ -50,13 +79,141 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <!-- Chosen -->
-  <script src="../../assets/chosen/chosen.jquery.js"></script>
-  <script src="../../server.js"></script>
+  <script src="/chosen/chosen.jquery.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function () {
       $(".chosen-select").chosen();
     });
+
+    const questions = [
+      {
+        number: 1,
+        question: "I prefer to be in social settings with larger groups."
+      },
+      {
+        number: 2,
+        question: "I prefer the theater over watching movies at home."
+      },
+      {
+        number: 3,
+        question: "It's healthy for couples to have separate activities."
+      },
+      {
+        number: 4,
+        question: "Love at first sight is a real thing."
+      },
+      {
+        number: 5,
+        question: "Valentine's Day has to be celebrated on February 14th."
+      },
+      {
+        number: 6,
+        question: "I prefer a drink at home over going to the bars."
+      },
+      {
+        number: 7,
+        question: "I would rather live in a condo in the city than a house in the suburbs."
+      },
+      {
+        number: 8,
+        question: "I would rather read the book than see the movie."
+      },
+      {
+        number: 9,
+        question: "I am more a dog person than a cat person."
+      },
+      {
+        number: 10,
+        question: "I prefer the beach over the mountains."
+      },
+    ];
+
+    function displayQuestion() {
+      for (let i = 0; i < questions.length; i++) {
+        let questNum = $("<h3>");
+        let questText = $("<h5>");
+        let questBlock = $("<div>");
+        let optionEmpty = $("<option>")
+        let option1 = $("<option>");
+        let option2 = $("<option>");
+        let option3 = $("<option>");
+        let option4 = $("<option>");
+        let option5 = $("<option>");
+        let select = $("<select>");
+        questNum
+          .addClass("mt-5 font-weight-bold")
+          .text("Question " + questions[i].number)
+        questText
+          .text(questions[i].question);
+        optionEmpty
+          .attr("value", "")
+          .text("");
+        option1
+          .attr("value", 1)
+          .text("1 (strongly disagree)");
+        option2
+          .attr("value", 2)
+          .text("2")
+        option3
+          .attr("value", 3)
+          .text("3")
+        option4
+          .attr("value", 4)
+          .text("4")
+        option5
+          .attr("value", 5)
+          .text("5 (strongly agree)")
+        select
+          .addClass("chosen-select")
+          .attr("data-placeholder", "Select a Number")
+          .attr("id", "q" + questions[i].number)
+          .append(optionEmpty)
+          .append(option1)
+          .append(option2)
+          .append(option3)
+          .append(option4)
+          .append(option5);
+        questBlock
+          .append(questNum)
+          .append(questText)
+          .append(select);
+        $("#questView").append(questBlock);
+      }
+    };
+
+    displayQuestion();
+
+    // take the input from the "About You" form and the values from the questions and store as an object
+
+    $("#submitButton").on("click", function (event) {
+      event.preventDefault();
+      const newProfile = {
+        name: $("#name").val().trim(),
+        photo: $("#photo").val().trim(),
+        scores: [
+          $("#q1").val(),
+          $("#q2").val(),
+          $("#q3").val(),
+          $("#q4").val(),
+          $("#q5").val(),
+          $("#q6").val(),
+          $("#q7").val(),
+          $("#q8").val(),
+          $("#q9").val(),
+          $("#q10").val()
+        ]
+      };
+      const currentURL = window.location.origin;
+      $.post(currentURL + "/api/friends", newProfile, function (data) {
+        $("#matchName").text(data.matchName);
+        $("#matchPhoto").attr("src", data.matchPhoto);
+        $("#matchTag").text(data.matchTag);
+        $("#matchModal").modal("show");
+      })
+      $("#inputForm").trigger("reset");
+    });
+
   </script>
 
 </body>
