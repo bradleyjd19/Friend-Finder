@@ -2,7 +2,7 @@
 Friend Finder - Letterkenny Match is a full-stack "matching" application that determines which Letterkenny character a user is most compatible with by taking the user's responses to a survey and comparing them to each character's responses.
 
 ## Demo
-A demo of the application can be found on Heroku at https://young-reaches-54208.herokuapp.com/
+A demo of the application can be found on Heroku at https://letterkennymatch.herokuapp.com/
 
 ## Instructions
 - From the Home Page, click the "Begin Survey" button to display the survey form.
